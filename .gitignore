@@ -1,2 +1,3 @@
-/scraping-app/venv/
-/scraping-app/node_modules/
+venv/
+node_modules/
+__pycache__/

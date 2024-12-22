@@ -11,8 +11,6 @@ def data_to_dataframe(data):
 }
     data_df = pd.DataFrame(data_to_dataframe);
     return data_df
-def save_data(name):
-    data_df.to_csv(name,index=False)
 def filtro_nombre(nombre = ""):
     nombre = data_df[data_df["nombre"] == nombre]
     return nombre.to_dict(orient='list')

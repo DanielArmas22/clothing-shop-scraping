@@ -1,20 +1,12 @@
 import hym as hym_scraper
-from funcionalidades import pandas
 print("ejecutando test de hym_scraper")
 
 def test_hym_scraper():
     hym_scraper.iniciar_driver()
-    a = "hombre"
-    b = 0
-    c = "jeans"
-    d = 10
-    hym_scraper.parametros_busqueda(a, b, c, d)
+    hym_scraper.parametros_busqueda("hombre", 0, "jeans", 10)
     hym_scraper.cargar_url()
     data = hym_scraper.obtener_datos()
-    # print(data)
-    #guardar datos en un dataframe 
-    pandas.data_to_dataframe(data)
-    pandas.save_data(f"hym_{a}_{b}_{c}_{d}.csv")
+    print(data)
 test_hym_scraper()
 # a = 12345
 # b = str(a)

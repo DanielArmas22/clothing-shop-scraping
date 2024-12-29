@@ -1,36 +1,26 @@
 import hym as hym_scraper
 from funcionalidades import pandas
+import pandas as pd
 print("ejecutando test de hym_scraper")
 
 def test_hym_scraper():
-    hym_scraper.iniciar_driver()
-    a = "hombre"
-    b = 0
-    c = "jeans"
-    d = 10
-    hym_scraper.parametros_busqueda(a, b, c, d)
-    hym_scraper.cargar_url()
-    data = hym_scraper.obtener_datos()
-    # print(data)
-    #guardar datos en un dataframe 
-    pandas.data_to_dataframe(data)
-    pandas.save_data(f"hym_{a}_{b}_{c}_{d}.csv")
+    # hym_scraper.iniciar_driver()
+    # a = "hombre"
+    # b = 0
+    # c = "jeans"
+    # d = 10
+    # hym_scraper.parametros_busqueda(a, b, c, d)
+    # hym_scraper.cargar_url()
+    # data = hym_scraper.obtener_datos()
+    # # print(data)
+    # #guardar datos en un dataframe 
+    # data = pandas.data_to_dataframe(data)
+    # print("datos guardados \n",data.head)
+    # # pandas.save_data(f"hym_{a}_{b}_{c}_{d}.csv")
+    df = pd.read_csv("hym_hombre_0_jeans_10.csv")
+    #obtener una fila
+    # print(dir(df))
+    for i in range(0,len(df)):
+        print(df.iloc[i])
 test_hym_scraper()
-# a = 12345
-# b = str(a)
-# print(b[:3])
-# data={
-#     "id":[],
-#     "nombre":[],
-#     "precio":[],
-#     "imagenes" : [],
-#     "enlace":[],
-# }
-# data_to_dataframe = {
-#     "id":data["id"],
-#     "nombre":data["nombre"],
-#     "precio":data["precio"],
-#     "imagenes":data["imagenes"],
-#     "enlace":data["enlace"],
-# }
-# data_df = pd.DataFrame(data_to_dataframe)
+

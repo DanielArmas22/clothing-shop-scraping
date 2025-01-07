@@ -8,6 +8,7 @@ def data_to_dataframe(data):
     "precio":data["precio"],
     "imagenes":data["imagenes"],
     "enlace":data["enlace"],
+    "colores":data["colores"],
 }
     data_df = pd.DataFrame(data_to_dataframe);
     return data_df

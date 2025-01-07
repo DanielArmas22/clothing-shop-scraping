@@ -102,6 +102,7 @@ def obtener_datos():
         "precio":[],
         "imagenes" : [],
         "enlace":[],
+        "colores":[],
     }
 
     # data.append(header)
@@ -138,11 +139,27 @@ def obtener_datos():
             print("Error al Localizar el enlace del articulo:", e)
             padre = None
             codProducto = None
+
+        #listaColores
+        try:
+            listaColores = articulo.find_elements(By.CSS_SELECTOR, "li") # obtiene todos los li dentro de cada articulo
+            # listaColores = WebDriverWait(articulo, 5).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "li"))) # obtiene todos los li dentro de cada articulo
+            # print(listaColores)
+
+            colores = set()
+            for color in listaColores:
+                color = color.find_element(By.CSS_SELECTOR, "a") # obtiene un a dentro de cada li
+                nombre_color = color.get_attribute("title")
+                colores.add(nombre_color)
+        except Exception as e:
+            print("Error al Localizar los colores del articulo:", e)
+            colores = None
         data["id"].append(codProducto)
         data["nombre"].append(nombre)
         data["precio"].append(precio)
         data["imagenes"].append(list(url))
         data["enlace"].append(padre)
+        data["colores"].append(list(colores))
         #----- Adicional -----
         # url_producto(id)
         # adicional = obtener_producto()

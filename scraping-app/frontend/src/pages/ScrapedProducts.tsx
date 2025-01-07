@@ -7,10 +7,15 @@ interface Product {
   price: number;
   url: string;
   images: Image[];
+  colors: Color[];
 }
 interface Image {
   id: number;
   url: string;
+}
+interface Color {
+  id: number;
+  name: string;
 }
 function ScrapedProducts() {
   const [data, setData] = useState([]);
@@ -36,6 +41,11 @@ function ScrapedProducts() {
           <div>
             {product.images.map((image: Image) => (
               <img key={image.id} src={image.url}></img>
+            ))}
+          </div>
+          <div>
+            {product.colors.map((color: Color) => (
+              <img key={color.id} src={color.name}></img>
             ))}
           </div>
         </a>

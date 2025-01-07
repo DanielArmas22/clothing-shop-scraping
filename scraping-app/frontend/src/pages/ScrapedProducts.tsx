@@ -21,7 +21,11 @@ function ScrapedProducts() {
   const [data, setData] = useState([]);
   const loadProducts = async () => {
     const response = await getAllProducts();
-    setData(response.data);
+    if (response.data.length > 0) {
+      setData(response.data);
+    } else {
+      console.log("No data found");
+    }
   };
   useEffect(() => {
     loadProducts();

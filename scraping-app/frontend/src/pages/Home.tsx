@@ -18,6 +18,8 @@ function Home() {
         Mostrar Todos los productos
       </button>
       {isClicked && <ScrapedProducts />}
+      <br></br>
+      <br />
       <SearchForScrap />
     </>
   );

@@ -150,6 +150,7 @@ def obtener_datos():
             for color in listaColores:
                 color = color.find_element(By.CSS_SELECTOR, "a") # obtiene un a dentro de cada li
                 nombre_color = color.get_attribute("title")
+                codColor  = color.get_attribute("href").split("/")[-2]
                 colores.add(nombre_color)
         except Exception as e:
             print("Error al Localizar los colores del articulo:", e)

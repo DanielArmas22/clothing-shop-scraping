@@ -1,14 +1,17 @@
 // import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { scrape } from "../api/scraping.api";
 type FormData = {
   genero: string;
   prenda: string;
 };
 function SearchForScrap() {
   const { register, handleSubmit } = useForm<FormData>();
-  const onSubmit: SubmitHandler<FormData> = (data, e) => {
+  const onSubmit: SubmitHandler<FormData> = async (data, e) => {
     e?.preventDefault();
     console.log(data);
+    const response = await scrape(data);
+    console.log(response.data);
   };
   return (
     <>

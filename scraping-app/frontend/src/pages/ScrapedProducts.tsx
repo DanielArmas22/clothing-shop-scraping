@@ -49,7 +49,7 @@ function ScrapedProducts() {
           </div>
           <div>
             {product.colors.map((color: Color) => (
-              <img key={color.id} src={color.name}></img>
+              <div key={color.id}>{color.name}</div>
             ))}
           </div>
         </a>

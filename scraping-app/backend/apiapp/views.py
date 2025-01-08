@@ -12,9 +12,11 @@ class scrape(APIView):
     def get(self, request):
         # print("ejecutando test de hym_scraper")
         hym_scraper.iniciar_driver()
-        a = "hombre"
+        # a = "hombre"
+        a = request.GET.get('genero')
         b = 0
-        c = "camisas"
+        # c = "camisas"
+        c = request.GET.get('prenda')
         d = 10
         hym_scraper.parametros_busqueda(a, b, c, d)
         hym_scraper.cargar_url()
@@ -37,6 +39,11 @@ class scrape(APIView):
                     url = imagen
                 )
             prod.images.add(img)
+            for color in product["colores"]:
+                col = models.Color.objects.create(
+                    name = color
+                )
+            prod.colors.add(col)
         print("datos guardados en la base de datos")
         return Response({'message': 'Datos guardados en la base de datos'}, status=200)
 class ImageList(generics.ListCreateAPIView):

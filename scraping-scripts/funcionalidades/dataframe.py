@@ -41,3 +41,10 @@ def get_cortes(nombres):
         if coincidencias:
             cortes.add(coincidencias[0])
     return list(cortes)
+def get_colores():
+    df_colores = data_df["colores"].unique().tolist()
+    colores = set()
+    for color in df_colores:
+        for c in color.replace("'", "").replace("[", "").replace("]", "").split(","):
+            colores.add(c.strip()) if c.strip() != "" else None
+    return colores

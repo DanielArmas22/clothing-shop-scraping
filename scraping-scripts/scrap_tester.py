@@ -1,5 +1,5 @@
 import hym as hym_scraper
-from funcionalidades import pandas
+from funcionalidades import dataframe as dataf
 import pandas as pd
 print("ejecutando test de hym_scraper")
 
@@ -14,9 +14,9 @@ def test_hym_scraper():
     data = hym_scraper.obtener_datos()
     # print(data)
     #guardar datos en un dataframe 
-    data = pandas.data_to_dataframe(data)
+    data = dataf.data_to_dataframe(data)
     print("datos guardados \n",data.head)
-    # pandas.save_data(f"hym_{a}_{b}_{c}_{d}.csv")
+    dataf.save_data(f"hym_{a}_{b}_{c}_{d}.csv")
     # df = pd.read_csv(f"hym_{a}_{b}_{c}_{d}.csv")
     #obtener una fila
     # print(dir(df))

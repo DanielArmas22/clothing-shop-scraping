@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllProducts } from "../api/scraping.api";
 import { getColor } from "../api/colors.api";
 import { set } from "react-hook-form";
+import { Image } from "@nextui-org/image";
 interface Product {
   id: number;
   name: string;
@@ -48,9 +49,15 @@ function ScrapedProducts() {
           <div>{product.name}</div>
           <div>{product.price}</div>
           {/* <div>{product.url}</div> */}
-          <div>
+          <div className="flex gap-2 flex-wrap">
             {product.images.map((image: Image) => (
-              <img key={image.id} src={image.url}></img>
+              <Image
+                key={image.id}
+                src={image.url}
+                width={150}
+                isZoomed
+                isBlurred
+              ></Image>
             ))}
           </div>
           <div className="rounded-xl shadow-md px-6 py-2">

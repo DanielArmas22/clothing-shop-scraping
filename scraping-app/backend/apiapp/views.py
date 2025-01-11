@@ -59,4 +59,16 @@ class ProductViewSet(viewsets.ModelViewSet):
     print("ejecutando product")
     queryset = models.Product.objects.all()
     serializer_class = serializer.ProductSerializer
-  
+
+class ProductPriceFilter(APIView):
+    def get(self, request):
+        min_price = request.GET.get('min_price')
+        max_price = request.GET.get('max_price')
+        products = models.Product.objects.filter(price__range=(min_price, max_price))
+        result_count = products.count()
+        product_serializer = serializer.ProductSerializer(products, many=True)
+        response_data = {
+            'result_count': result_count,
+            'products': product_serializer.data
+        }
+        return Response(response_data, status=200)

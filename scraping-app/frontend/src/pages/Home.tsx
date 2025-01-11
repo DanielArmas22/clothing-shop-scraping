@@ -11,6 +11,9 @@ function Home() {
     <>
       <div className="text-3xl">Home</div>
       <div className="my-32"></div>
+      <SearchForScrap />
+      <br></br>
+      <br />
       <button
         onClick={handleShowAllProductsButton}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -18,9 +21,6 @@ function Home() {
         Mostrar Todos los productos
       </button>
       {isClicked && <ScrapedProducts />}
-      <br></br>
-      <br />
-      <SearchForScrap />
     </>
   );
 }

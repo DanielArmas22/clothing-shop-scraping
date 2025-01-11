@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../api/scraping.api";
-import { getColor } from "../api/colors.api";
-import { set } from "react-hook-form";
+import { getAllProducts, getFilterProducts } from "../api/scraping.api";
 import { Image } from "@nextui-org/image";
 interface Product {
   id: number;
@@ -20,18 +18,22 @@ interface Color {
   name: string;
   rgb: string;
 }
-function ScrapedProducts() {
+interface Props {
+  min_price: number;
+  max_price: number;
+}
+function ScrapedProducts(props: Props) {
   const [data, setData] = useState([]);
-  const [colores, setcolores] = useState([]);
   const loadProducts = async () => {
-    const response = await getAllProducts();
-    console.log(response.data);
-    // setColorcito(colorcito.data);
-    if (response.data.length > 0) {
-      setData(response.data);
-    } else {
-      console.log("No data found");
+    const response =
+      props.min_price && props.max_price
+        ? await getFilterProducts(props.min_price, props.max_price)
+        : await getAllProducts();
+    if (response.status !== 200) {
+      console.log("Error");
+      return;
     }
+    setData(response.data);
   };
   useEffect(() => {
     loadProducts();

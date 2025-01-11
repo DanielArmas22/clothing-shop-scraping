@@ -15,3 +15,11 @@ export const scrape = async (data: SearchData) => {
 export const getAllProducts = async () => {
   return axios.get("http://localhost:8000/api/products/");
 };
+export const getFilterProducts = async (min_price: number, max_price: number) => {
+  return axios.get("http://localhost:8000/api/products/", {
+    params: {
+      min_price: min_price,
+      max_price: max_price,
+    },
+  });
+}

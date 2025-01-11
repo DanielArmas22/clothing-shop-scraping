@@ -39,10 +39,8 @@ class scrape(APIView):
                     url = imagen
                 )
                 prod.images.add(img)
-
             #colores creados
             if product["colores"] != "[]":
-                # colores = product["colores"].replace("'", "").replace("[", "").replace("]", "").split(",")
                 print(product["colores"])
                 print(type(product["colores"]))
                 # colores = ast.literal_eval(product["colores"])

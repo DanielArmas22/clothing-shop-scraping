@@ -149,12 +149,10 @@ def obtener_datos():
             colores = list()
             for color in listaColores:
                 color = color.find_element(By.CSS_SELECTOR, "a") # obtiene un a dentro de cada li
-
-                #color_rgb = background-color: rgb(26, 40, 64);
-                color_rgb = color.find_element(By.CSS_SELECTOR,"div").get_attribute("style").split("rgb")[-1].split(";")[0] # obtiene el rgb del color
+                rgb_color = color.find_element(By.CSS_SELECTOR,"div").get_attribute("style").split("rgb")[-1].split(";")[0] # obtiene el rgb del color
                 nombre_color = color.get_attribute("title")
-                codColor  = color.get_attribute("href").split("/")[-2]
-                colores.append({"nombre": nombre_color, "rgb": color_rgb})
+                # codColor  = color.get_attribute("href").split("/")[-2]
+                colores.append({"nombre": nombre_color, "rgb": rgb_color})
         except Exception as e:
             print("Error al Localizar los colores del articulo:", e)
             colores = None

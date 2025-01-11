@@ -1,7 +1,7 @@
 from ... import models as m
 def check_color(color):
     #comparar si el color esta en la base de datos
-    colores = m.Color.objects.all()
+    colores = m.Color.objects.values_list('name', flat=True)
     if color in colores:
         return True
     return False

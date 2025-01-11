@@ -17,6 +17,7 @@ def test_hym_scraper():
     data = dataf.data_to_dataframe(data)
     print("datos guardados \n",data.head)
     dataf.save_data(f"hym_{a}_{b}_{c}_{d}.csv")
+    print(data.iloc[1])
     # df = pd.read_csv(f"hym_{a}_{b}_{c}_{d}.csv")
     #obtener una fila
     # print(dir(df))

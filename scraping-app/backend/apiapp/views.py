@@ -8,7 +8,7 @@ from .scripts.functions import database_options as db_options
 
 from rest_framework.response import Response
 from rest_framework import status
-
+import ast
 # Create your views here.
 class scrape(APIView):
     def get(self, request):
@@ -38,14 +38,19 @@ class scrape(APIView):
                 img = models.Image.objects.create(
                     url = imagen
                 )
-            prod.images.add(img)
-            
+                prod.images.add(img)
+
             #colores creados
-            colores = product["colores"].replace("'", "").replace("[", "").replace("]", "").split(",")
-            for color in colores:
-                #agregar el color si no existe, si existe obtenerlo y asignarlo al producto
-                col = models.Color.objects.create(name = color) if db_options.check_color(color) == False else db_options.get_color(color)
-            prod.colors.add(col)
+            if product["colores"] != "[]":
+                # colores = product["colores"].replace("'", "").replace("[", "").replace("]", "").split(",")
+                print(product["colores"])
+                print(type(product["colores"]))
+                # colores = ast.literal_eval(product["colores"])
+                for color in product["colores"]:
+                    print(color)
+                    #agregar el color si no existe, si existe obtenerlo y asignarlo al producto
+                    col = models.Color.objects.create(name = color.get("nombre"),rgb = color.get("rgb")) if db_options.check_color(color.get("nombre")) == False else db_options.get_color(color.get("nombre"))
+                    prod.colors.add(col)
         print("datos guardados en la base de datos")
         return Response({'message': 'Datos guardados en la base de datos'}, status=200)
 class ImageList(generics.ListCreateAPIView):

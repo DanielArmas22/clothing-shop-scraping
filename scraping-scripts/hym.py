@@ -146,11 +146,15 @@ def obtener_datos():
             # listaColores = WebDriverWait(articulo, 5).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "li"))) # obtiene todos los li dentro de cada articulo
             # print(listaColores)
 
-            colores = set()
+            colores = list()
             for color in listaColores:
                 color = color.find_element(By.CSS_SELECTOR, "a") # obtiene un a dentro de cada li
+
+                #color_rgb = background-color: rgb(26, 40, 64);
+                color_rgb = color.find_element(By.CSS_SELECTOR,"div").get_attribute("style").split("rgb")[-1].split(";")[0] # obtiene el rgb del color
                 nombre_color = color.get_attribute("title")
-                colores.add(nombre_color)
+                codColor  = color.get_attribute("href").split("/")[-2]
+                colores.append({"nombre": nombre_color, "rgb": color_rgb})
         except Exception as e:
             print("Error al Localizar los colores del articulo:", e)
             colores = None

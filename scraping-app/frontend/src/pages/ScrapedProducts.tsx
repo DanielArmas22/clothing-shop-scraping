@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../api/scraping.api";
-
+import { getColor } from "../api/colors.api";
+import { set } from "react-hook-form";
 interface Product {
   id: number;
   name: string;
@@ -16,11 +17,15 @@ interface Image {
 interface Color {
   id: number;
   name: string;
+  rgb: string;
 }
 function ScrapedProducts() {
   const [data, setData] = useState([]);
+  const [colores, setcolores] = useState([]);
   const loadProducts = async () => {
     const response = await getAllProducts();
+    console.log(response.data);
+    // setColorcito(colorcito.data);
     if (response.data.length > 0) {
       setData(response.data);
     } else {
@@ -32,6 +37,7 @@ function ScrapedProducts() {
   }, []);
   return (
     <div className="grid grid-cols-3 gap-4">
+      {/* <div dangerouslySetInnerHTML={{ __html: colorcito }} /> */}
       {data.map((product: Product) => (
         <a
           key={product.id}
@@ -47,9 +53,15 @@ function ScrapedProducts() {
               <img key={image.id} src={image.url}></img>
             ))}
           </div>
-          <div>
+          <div className="rounded-xl shadow-md px-6 py-2">
             {product.colors.map((color: Color) => (
-              <div key={color.id}>{color.name}</div>
+              <div className="flex items-center gap-2" key={color.id}>
+                <div>{color.name}</div>
+                <img
+                  className="rounded-full h-2 w-2"
+                  src={`https://www.thecolorapi.com/id?format=svg&rgb=rgb${color.rgb}&named=false`}
+                ></img>
+              </div>
             ))}
           </div>
         </a>

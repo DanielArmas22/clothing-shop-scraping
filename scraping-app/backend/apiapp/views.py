@@ -27,14 +27,26 @@ class scrape(APIView):
         for i in range(0,len(data)):
 
             product = data.iloc[i]
+            #validar si el producto ya existe
+
             # producto creado
+            exists, prod = db_options.check_product(product)
+            if exists:
+                print("El producto ya existe")
+                continue
             prod = models.Product.objects.create(
             name = product["nombre"],
             price = float(product["precio"].replace('S/ ', '')) ,
-            url = product["enlace"],)
+            url = product["enlace"])
 
             #imagenes creadas
             for imagen in product["imagenes"]:
+
+                #validar si la imagen ya existe
+                exists, img = db_options.check_image(imagen)
+                if exists:
+                    prod.images.add(img)
+                    continue
                 img = models.Image.objects.create(
                     url = imagen
                 )

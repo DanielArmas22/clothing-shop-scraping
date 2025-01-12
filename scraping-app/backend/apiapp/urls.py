@@ -5,10 +5,9 @@ from django.urls import include
 from . import views
 productRouter = routers.DefaultRouter()
 productRouter.register(r'products', views.ProductViewSet, basename='products')
-filter_url = 'products/filter/'
+filter_url = 'products/filter'
 urlpatterns = [
     path('scrape/', views.scrape.as_view()),
     path('', include(productRouter.urls)),
-    path(f'{filter_url}price', views.ProductPriceFilter.as_view()),
-    path(f'{filter_url}color', views.ProductPriceFilter.as_view()),
+    path(f'{filter_url}', views.ProductFilter.as_view()),
 ]

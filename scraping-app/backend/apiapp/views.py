@@ -60,11 +60,19 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = models.Product.objects.all()
     serializer_class = serializer.ProductSerializer
 
-class ProductPriceFilter(APIView):
+class ProductFilter(APIView):
     def get(self, request):
         min_price = request.GET.get('min_price')
         max_price = request.GET.get('max_price')
-        products = models.Product.objects.filter(price__range=(min_price, max_price))
+        color = request.GET.get('color')
+
+        filters = {}
+        if min_price and max_price:
+            filters['price__range'] = (min_price, max_price)
+        if color:
+            filters['colors__name'] = color
+
+        products = models.Product.objects.filter(**filters)
         result_count = products.count()
         product_serializer = serializer.ProductSerializer(products, many=True)
         response_data = {
@@ -72,3 +80,27 @@ class ProductPriceFilter(APIView):
             'products': product_serializer.data
         }
         return Response(response_data, status=200)
+
+# class ProductPriceFilter(APIView):
+#     def get(self, request):
+#         min_price = request.GET.get('min_price')
+#         max_price = request.GET.get('max_price')
+#         products = models.Product.objects.filter(price__range=(min_price, max_price))
+#         result_count = products.count()
+#         product_serializer = serializer.ProductSerializer(products, many=True)
+#         response_data = {
+#             'result_count': result_count,
+#             'products': product_serializer.data
+#         }
+#         return Response(response_data, status=200)
+# class ProductColorFilter(APIView):
+#     def get(self, request):
+#         color = request.GET.get('color')
+#         products = models.Product.objects.filter(colors__name=color)
+#         result_count = products.count()
+#         product_serializer = serializer.ProductSerializer(products, many=True)
+#         response_data = {
+#             'result_count': result_count,
+#             'products': product_serializer.data
+#         }
+#         return Response(response_data, status=200)

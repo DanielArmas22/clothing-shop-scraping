@@ -70,9 +70,10 @@ class ProductFilter(APIView):
         if min_price and max_price:
             filters['price__range'] = (min_price, max_price)
         if color:
-            filters['colors__name'] = color
+            filters['colors__name__icontains'] = color
 
-        products = models.Product.objects.filter(**filters)
+        products = models.Product.objects.filter(**filters).distinct()
+        #** = desempaqueta el diccionario y lo pasa como argumentos a la funcion
         result_count = products.count()
         product_serializer = serializer.ProductSerializer(products, many=True)
         response_data = {

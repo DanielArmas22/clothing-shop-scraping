@@ -2,10 +2,11 @@ import ScrapedProducts from "./ScrapedProducts";
 import { useState } from "react";
 import SearchForScrap from "./SearchForScrap";
 function Home() {
-  const [isClicked, setIsClicked] = useState(false);
-  const handleShowAllProductsButton = () => {
-    setIsClicked(!isClicked);
-  };
+  // const [isClicked, setIsClicked] = useState(false);
+
+  // const handleShowAllProductsButton = () => {
+  //   setIsClicked(!isClicked);
+  // };
 
   return (
     <>
@@ -14,13 +15,15 @@ function Home() {
       <SearchForScrap />
       <br></br>
       <br />
-      <button
+      {/* <button
         onClick={handleShowAllProductsButton}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Mostrar Todos los productos
-      </button>
-      {isClicked && <ScrapedProducts />}
+      </button> */}
+
+      {/* {isClicked && <ScrapedProducts />} */}
+      <ScrapedProducts></ScrapedProducts>
     </>
   );
 }
